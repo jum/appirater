@@ -35,6 +35,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "AppiraterDelegate.h"
 
 extern NSString *const kAppiraterFirstUseDate;
 extern NSString *const kAppiraterUseCount;
@@ -90,13 +91,13 @@ extern NSString *const kAppiraterReminderRequestDate;
  */
 #define APPIRATER_RATE_LATER			NSLocalizedStringFromTable(@"Remind me later", @APPI_STRINGIZE2(APPIRATER_STRINGS_TABLE), nil)
 
-
 @interface Appirater : NSObject <UIAlertViewDelegate> {
 
 	UIAlertView		*ratingAlert;
 }
 
 @property(nonatomic, strong) UIAlertView *ratingAlert;
+@property(nonatomic, weak) NSObject <AppiraterDelegate> *delegate;
 
 /*
  Tells Appirater that the app has launched, and on devices that do NOT
@@ -209,6 +210,11 @@ extern NSString *const kAppiraterReminderRequestDate;
  looks and making sure the link to your app's review page works.
  */
 + (void) setDebug:(BOOL)debug;
+
+/*
+ Set the delegate if you want to know when Appirater does something
+ */
++ (void)setDelegate:(id<AppiraterDelegate>)delegate;
 
 @end
 

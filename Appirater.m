@@ -124,9 +124,7 @@ static id<AppiraterDelegate> _delegate;
 	NSURLRequest *testRequest = [NSURLRequest requestWithURL:testURL  cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:20.0];
 	NSURLConnection *testConnection = [[NSURLConnection alloc] initWithRequest:testRequest delegate:self];
 	
-    BOOL ret =  ((isReachable && !needsConnection) || nonWiFi) ? (testConnection ? YES : NO) : NO;
-    [testConnection release];
-    return ret;
+    return ((isReachable && !needsConnection) || nonWiFi) ? (testConnection ? YES : NO) : NO;
 }
 
 + (Appirater*)sharedInstance {

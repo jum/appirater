@@ -36,6 +36,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AppiraterDelegate.h"
+#import <StoreKit/StoreKit.h>
 
 extern NSString *const kAppiraterFirstUseDate;
 extern NSString *const kAppiraterUseCount;
@@ -91,7 +92,7 @@ extern NSString *const kAppiraterReminderRequestDate;
  */
 #define APPIRATER_RATE_LATER			NSLocalizedStringFromTable(@"Remind me later", @APPI_STRINGIZE2(APPIRATER_STRINGS_TABLE), nil)
 
-@interface Appirater : NSObject <UIAlertViewDelegate> {
+@interface Appirater : NSObject <UIAlertViewDelegate, SKStoreProductViewControllerDelegate> {
 
 	UIAlertView		*ratingAlert;
 }
@@ -161,6 +162,11 @@ extern NSString *const kAppiraterReminderRequestDate;
  */
 + (void)rateApp;
 
+/*
+ Tells Appirater to immediately close any open rating modals (e.g. StoreKit rating VCs).
+*/
++ (void)closeModal;
+
 @end
 
 @interface Appirater(Configuration)
@@ -219,6 +225,11 @@ extern NSString *const kAppiraterReminderRequestDate;
  Set the delegate if you want to know when Appirater does something
  */
 + (void)setDelegate:(id<AppiraterDelegate>)delegate;
+
+/*
+ Set whether or not Appirater uses animation (currently respected when pushing modal StoreKit rating VCs).
+ */
++ (void)setUsesAnimation:(BOOL)animation;
 
 @end
 

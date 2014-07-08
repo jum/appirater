@@ -230,7 +230,7 @@ static BOOL _alwaysUseMainBundle = NO;
     SCNetworkReachabilityRef defaultRouteReachability = SCNetworkReachabilityCreateWithAddress(NULL, (struct sockaddr *)&zeroAddress);
     SCNetworkReachabilityFlags flags;
 	
-    BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
+    Boolean didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
     CFRelease(defaultRouteReachability);
 	
     if (!didRetrieveFlags)
@@ -468,9 +468,12 @@ static BOOL _alwaysUseMainBundle = NO;
     return [[NSUserDefaults standardUserDefaults] boolForKey:kAppiraterRatedCurrentVersion];
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-implementations"
 + (void)appLaunched {
 	[Appirater appLaunched:YES];
 }
+#pragma GCC diagnostic pop
 
 + (void)appLaunched:(BOOL)canPromptForRating {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0),
@@ -507,9 +510,12 @@ static BOOL _alwaysUseMainBundle = NO;
                    });
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-implementations"
 + (void)showPrompt {
   [Appirater tryToShowPrompt];
 }
+#pragma GCC diagnostic pop
 
 + (void)tryToShowPrompt {
   [[Appirater sharedInstance] showPromptWithChecks:true
